@@ -5,6 +5,7 @@ import { Row, Col, Input, Menu } from "antd"; //webpack이 알아서 css로 처�
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import UserProfile from "../components/UserProfile";
+import { useSelector } from "react-redux";
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
@@ -12,7 +13,12 @@ const SearchInput = styled(Input.Search)`
 
 // 공통적으로 쓸 레이아웃
 const AppLayout = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 7.리덕스를 사용하면서 중앙관리소에서 관리하기 때문에 관리할 필요없지짐
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn); // 받아온다.
+  // react-redux는 react와 redux를 연결시켜줌 useSelector는 react-redux
+  // 8.isLoggedIn이 바뀌면 AppLayout이 리렌더링됨
+
   return (
     <div>
       <Menu mode="horizontal">
@@ -38,9 +44,11 @@ const AppLayout = ({ children }) => {
       <Row gutter={8}>
         <Col xs={13} md={6}>
           {isLoggedIn ? (
-            <UserProfile setIsLoggedIn={setIsLoggedIn} />
+            // 9. 프롭스로 넘겨줄 필요가 없어지고 해당 컴포넌트로 가서...
+            <UserProfile />
           ) : (
-            <LoginForm setIsLoggedIn={setIsLoggedIn} />
+            // <UserProfile setIsLoggedIn={setIsLoggedIn} />
+            <LoginForm />
           )}
         </Col>
         <Col xs={24} md={12}>

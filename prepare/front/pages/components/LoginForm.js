@@ -2,17 +2,23 @@ import React, { useState, useCallback, useMemo } from "react";
 import { Form, Input, Button } from "antd";
 import Link from "next/link";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import useInput from "../../hooks/useInput";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../reducers";
 
 // div 태그가 됨
 const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;
 
-const LoginForm = ({ setIsLoggedIn }) => {
-  const [id, onChangeId] = useInput("");
+// 10. 프롭을 받는게 아니라..
+// const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = () => {
+  // 11. 액션을 디스패치해야 돼죠. 리덕스 쓰면 useState 쓸 일이 많이 줄어들어요.
+  const dispatch = useDispatch();
 
+  const [id, onChangeId] = useInput("");
   // const [id, setId] = useState("");
   // const onChangeId = useCallback((e) => {
   //   setId(e.target.value);
@@ -29,6 +35,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
   const onSubmitForm = useCallback(
     (e) => {
       console.log(id, password);
+      dispatch(loginAction({ id, password })); // 12.
       setIsLoggedIn(true);
     },
     [id, password]
@@ -70,8 +77,9 @@ const LoginForm = ({ setIsLoggedIn }) => {
   );
 };
 
-LoginForm.propTypes = {
-  setIsLoggedIn: PropTypes.func.isRequired,
-};
+// 10. 프롭을 받는게 아니라..
+// LoginForm.propTypes = {
+//   setIsLoggedIn: PropTypes.func.isRequired,
+// };
 
 export default LoginForm;
