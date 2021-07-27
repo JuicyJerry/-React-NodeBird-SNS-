@@ -1,60 +1,60 @@
 import { HYDRATE } from "next-redux-wrapper";
+import { combineReducers } from "redux";
+
+import user from "./user";
+import post from "./post";
 
 // ex
-const initialState = {
-  user: {
-    isLoggedIn: false,
-    user: null,
-    signupData: {},
-    loginData: {},
-  },
-  post: {
-    mainPosts: [],
-  },
-};
+// const initialState = {
+//   user: {},
+//   post: {},
+// };
+
+// const initialState = {
+//   user: {
+//     isLoggedIn: false,
+//     user: null,
+//     signupData: {},
+//     loginData: {},
+//   },
+//   post: {
+//     mainPosts: [],
+//   },
+// };
 
 // login action
-export const loginAction = (data) => {
-  return {
-    type: "LOG_IN",
-    data,
-  };
-};
+// export const loginAction = (data) => {
+//   console.log("loginAction");
 
-// logout action
-export const logoutAction = () => {
-  return {
-    type: "LOG_OUT",
-  };
-};
+//   return {
+//     type: "LOG_IN",
+//     data,
+//   };
+// };
 
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case HYDRATE:
-      console.log("HYDRATE", action);
-      return { ...state, ...action.payload };
-    case "CHANGE_NICKNAME":
-      return {
-        ...state,
-        user: {
-          ...state,
-          isLoggedIn: true,
-          user: action.data,
-        },
-      };
-    case "LOG_OUT":
-      return {
-        ...state,
-        user: {
-          ...state,
-          isLoggedIn: false,
-          user: null,
-        },
-      };
-    default:
-      return state;
-  }
-};
+// // logout action
+// export const logoutAction = () => {
+//   return {
+//     type: "LOG_OUT",
+//   };
+// };
+
+// const rootReducer = (state = initialState, action) => {
+const rootReducer = combineReducers({
+  // SSR를 위햬써 HYDRATE를 위해서 index 부분 추가
+  index: (state = {}, action) => {
+    switch (action.type) {
+      case HYDRATE:
+        console.log("HYDRATE", action);
+        return { ...state, ...action.payload };
+
+      default:
+        return state;
+    }
+  },
+  user,
+  post,
+});
 
 // example end.
 

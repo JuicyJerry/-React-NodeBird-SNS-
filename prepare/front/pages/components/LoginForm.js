@@ -2,10 +2,11 @@ import React, { useState, useCallback, useMemo } from "react";
 import { Form, Input, Button } from "antd";
 import Link from "next/link";
 import styled from "styled-components";
-// import PropTypes from "prop-types";
-import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
-import { loginAction } from "../../reducers";
+// import PropTypes from "prop-types";
+
+import useInput from "../../hooks/useInput";
+import { loginAction } from "../../reducers/user";
 
 // div 태그가 됨
 const ButtonWrapper = styled.div`
@@ -32,20 +33,19 @@ const LoginForm = () => {
 
   const style = useMemo(() => ({ marginTop: 10 }), []); // 리렌더링돼도 같은 객체가 유지
 
-  const onSubmitForm = useCallback(
-    (e) => {
-      console.log(id, password);
-      dispatch(loginAction({ id, password })); // 12.
-      setIsLoggedIn(true);
-    },
-    [id, password]
-  );
+  const onSubmitForm = useCallback(() => {
+    console.log(id, password);
+    dispatch(loginAction({ id, password })); // 12.
+    // setIsLoggedIn(true);
+  }, [id, password]);
 
   const FormWrapper = styled(Form)`
     padding: 10px;
   `;
 
   return (
+    // <FormWrapper onFinish={onSubmitForm}>
+    // <form onFinish={onSubmitForm}>
     <FormWrapper onFinish={onSubmitForm}>
       <div>
         <label htmlFor="user-id">아이디</label>
@@ -64,6 +64,7 @@ const LoginForm = () => {
         />
       </div>
       <ButtonWrapper style={style}>
+        {/* <div> */}
         <Button type="primary" htmlType="submit" loading={false}>
           로그인
         </Button>
@@ -72,8 +73,10 @@ const LoginForm = () => {
             <Button>회원가입</Button>
           </a>
         </Link>
+        {/* </div> */}
       </ButtonWrapper>
     </FormWrapper>
+    // </FormWrapper>
   );
 };
 

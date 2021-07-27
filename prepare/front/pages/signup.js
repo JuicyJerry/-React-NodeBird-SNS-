@@ -7,9 +7,9 @@ import AppLayout from "./components/AppLayout";
 import useInput from "../hooks/useInput";
 
 const Signup = () => {
-  const ErrorMessage = styled.div`
-    color: red;
-  `;
+  // const ErrorMessage = styled.div`
+  //   color: red;
+  // `;
 
   const [id, onChangeId] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
@@ -96,6 +96,7 @@ const Signup = () => {
             value={password}
             required
             onChange={onChangePassword}
+            autoComplete="off"
           />
         </div>
         <div>
@@ -107,11 +108,10 @@ const Signup = () => {
             value={passwordCheck}
             required
             onChange={onChangePasswordCheck}
+            autoComplete="off"
           />
           {passwordError && (
-            <ErrorMessage style={{ color: "red" }}>
-              비밀번호가 일치하지 않습니다.
-            </ErrorMessage>
+            <div style={{ color: "red" }}>비밀번호가 일치하지 않습니다.</div>
           )}
         </div>
         <div>
@@ -119,9 +119,7 @@ const Signup = () => {
             제로초 말을 잘 들을 것을 동의합니다.
           </Checkbox>
           {termError && (
-            <ErrorMessage style={{ color: "red" }}>
-              약관에 동의하셔야 합니다.
-            </ErrorMessage>
+            <div style={{ color: "red" }}>약관에 동의하셔야 합니다.</div>
           )}
         </div>
         <div style={{ marginTop: 10 }}>

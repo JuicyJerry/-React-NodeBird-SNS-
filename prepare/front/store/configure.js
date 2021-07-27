@@ -5,18 +5,19 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "../reducers";
 
 const configureStore = () => {
-  //   const enhancer =
-  //     process.env.NODE_ENV === "production"
-  //       ? compose(applyMiddleware([]))
-  //       : compose(applyMiddleware([]));
+  const middleWares = [];
+  const enhancer =
+    process.env.NODE_ENV === "production"
+      ? compose(applyMiddleware(...middleWares))
+      : composeWithDevTools(compose(applyMiddleware(...middleWares)));
 
-  //   const store = createStore(reducer, enhancer);
-  const store = createStore(reducer);
+  const store = createStore(reducer, enhancer);
+  //   const store = createStore(reducer);
 
-  store.dispatch({
-    type: "CHANGE_NICKNAME",
-    data: "boogicho",
-  });
+  //   store.dispatch({
+  //     type: "CHANGE_NICKNAME",
+  //     data: "boogicho",
+  //   });
 
   /*
   {

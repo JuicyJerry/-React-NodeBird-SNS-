@@ -23,9 +23,9 @@ const NodeBird = ({ Component }) => {
 };
 
 // 점검
-NodeBird.PropTypes = {
-  Component: PropTypes.elementType.isRequired,
-};
+// NodeBird.PropTypes = {
+//   Component: PropTypes.elementType.isRequired,
+// };
 // <Component />처럼 JSX로 쓸 수 있는 것들을 elementType이라고 합니다.
 
 // export default wrapper.widthRedux(NodeBird);
